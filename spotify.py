@@ -26,6 +26,18 @@ st.write("""
         - time_signature: int, from 0 to 5, overall time signature of the track, how many beats are in each bar.
         """)
 
+# Background image
+page_bg_img = '''
+<style>
+.stApp {
+background-image: url("https://images.unsplash.com/photo-1535925191244-17536ca4f8b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3BvdGlmeSUyMG11c2ljfGVufDB8fDB8fHww&w=1000&q=80");
+background-size: auto;
+}
+</style>
+'''
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 # Sidebar - User input features
 st.sidebar.header('User Input Features')
@@ -50,7 +62,7 @@ def user_input_features():
     mode = mode_dict[mode]
     loudness = st.sidebar.slider('Loudness', -60.0, 2.0, -22.30, 0.1)
     # speechiness = st.sidebar.slider('Speechiness', 0.0, 1.0, 0.31, 0.01)
-    # acousticness = st.sidebar.slider('Acousticness', 0.0, 1.0, 1.0, 0.01)
+    acousticness = st.sidebar.slider('Acousticness', 0.0, 1.0, 1.0, 0.01)
     # instrumentalness = st.sidebar.slider('Instrumentalness', 0.0, 1.0, 1.0, 0.01)
     # liveness = st.sidebar.slider('Liveness', 0.0, 1.0, 1.0, 0.01)
     valence = st.sidebar.slider('Valence', 0.0, 1.0, 0.64, 0.01)
@@ -67,7 +79,7 @@ def user_input_features():
             'mode': mode,
             'loudness': loudness,
             # 'speechiness': speechiness,
-            # 'acousticness': acousticness,
+            'acousticness': acousticness,
             # 'instrumentalness': instrumentalness,
             # 'liveness': liveness,
             'valence': valence,
@@ -90,7 +102,7 @@ spotify_raw.drop_duplicates(inplace=True)
 spotify_raw.dropna(inplace=True)
 
 # drop columns that are not needed
-spotify = spotify_raw.drop(columns=['track_id', 'playlist_url', 'playlist_name', 'track_name', 'artist_name', 'album', 'album_cover', 'artist_genres', 'genre', 'liveness', 'key', 'duration_ms', 'instrumentalness', 'speechiness', 'acousticness'])
+spotify = spotify_raw.drop(columns=['track_id', 'playlist_url', 'playlist_name', 'track_name', 'artist_name', 'album', 'album_cover', 'artist_genres', 'genre', 'liveness', 'key', 'duration_ms', 'instrumentalness', 'speechiness'])
 
 # combine the user input features and the spotify dataset
 df = pd.concat([input_df,spotify],axis=0)
