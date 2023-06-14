@@ -36,7 +36,7 @@ st.write("""
 # </style>
 # '''
 
-st.markdown(page_bg_img, unsafe_allow_html=True)
+# st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
 # Sidebar - User input features
